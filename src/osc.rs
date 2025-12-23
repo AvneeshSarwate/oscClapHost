@@ -3,6 +3,8 @@ use rosc::{OscMessage, OscPacket, OscType};
 use rtrb::{Producer, RingBuffer};
 use std::collections::HashSet;
 use std::net::UdpSocket;
+use std::sync::atomic::{AtomicBool, Ordering};
+use std::sync::Arc;
 use std::thread;
 
 #[derive(Debug, Clone)]
@@ -49,6 +51,7 @@ pub fn start_osc_receiver(
     port: u16,
     mut producer: Producer<Command>,
     per_note_mod_params: HashSet<u32>,
+    verbose: bool,
 ) -> Result<thread::JoinHandle<()>> {
     let socket = UdpSocket::bind(format!("127.0.0.1:{}", port))
         .context(format!("Failed to bind OSC socket on port {}", port))?;
@@ -60,9 +63,12 @@ pub fn start_osc_receiver(
 
         loop {
             match socket.recv_from(&mut buf) {
-                Ok((size, _addr)) => {
+                Ok((size, addr)) => {
+                    if verbose {
+                        log::info!("[OSC-RECV] Received {} bytes from {}", size, addr);
+                    }
                     if let Ok((_, packet)) = rosc::decoder::decode_udp(&buf[..size]) {
-                        process_packet(&packet, &mut producer, &per_note_mod_params);
+                        process_packet(&packet, &mut producer, &per_note_mod_params, verbose);
                     }
                 }
                 Err(e) => {
@@ -79,10 +85,17 @@ fn process_packet(
     packet: &OscPacket,
     producer: &mut Producer<Command>,
     per_note_mod_params: &HashSet<u32>,
+    verbose: bool,
 ) {
     match packet {
         OscPacket::Message(msg) => {
+            if verbose {
+                log::info!("[OSC-PARSE] Message: {} args={:?}", msg.addr, msg.args);
+            }
             if let Some(cmd) = parse_message(msg, per_note_mod_params) {
+                if verbose {
+                    log::info!("[OSC-QUEUE] Pushing command: {:?}", cmd);
+                }
                 if producer.push(cmd).is_err() {
                     log::warn!("Command queue full, dropping OSC message");
                 }
@@ -90,7 +103,7 @@ fn process_packet(
         }
         OscPacket::Bundle(bundle) => {
             for p in &bundle.content {
-                process_packet(p, producer, per_note_mod_params);
+                process_packet(p, producer, per_note_mod_params, verbose);
             }
         }
     }

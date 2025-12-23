@@ -122,6 +122,7 @@ impl HostParamsImplShared for OscClapHostShared {
 pub struct AudioEngine {
     stream: Stream,
     _receiver: Receiver<MainThreadMessage>,
+    _sender: Sender<MainThreadMessage>,  // Keep sender alive to prevent receiver from disconnecting
 }
 
 impl AudioEngine {
@@ -133,14 +134,16 @@ impl AudioEngine {
         command_consumer: Consumer<Command>,
         channel_count: usize,
         max_buffer_size: usize,
+        verbose: bool,
     ) -> Result<(Self, Receiver<MainThreadMessage>)> {
-        let (_sender, receiver) = unbounded();
+        let (sender, receiver) = unbounded();
 
         let processor = StreamAudioProcessor::new(
             audio_processor,
             command_consumer,
             channel_count,
             max_buffer_size,
+            verbose,
         );
 
         let stream = build_output_stream_for_sample_format(device, processor, &config, sample_format)?;
@@ -150,6 +153,7 @@ impl AudioEngine {
             Self {
                 stream,
                 _receiver: receiver.clone(),
+                _sender: sender,  // Store sender to keep it alive
             },
             receiver,
         ))
@@ -196,6 +200,7 @@ struct StreamAudioProcessor {
     output_buffers: Vec<f32>,
     channel_count: usize,
     steady_counter: u64,
+    verbose: bool,
 }
 
 impl StreamAudioProcessor {
@@ -204,6 +209,7 @@ impl StreamAudioProcessor {
         command_consumer: Consumer<Command>,
         channel_count: usize,
         max_buffer_size: usize,
+        verbose: bool,
     ) -> Self {
         Self {
             audio_processor,
@@ -214,6 +220,7 @@ impl StreamAudioProcessor {
             output_buffers: vec![0.0; channel_count * max_buffer_size],
             channel_count,
             steady_counter: 0,
+            verbose,
         }
     }
 
@@ -230,8 +237,16 @@ impl StreamAudioProcessor {
         self.output_buffers[..needed_size].fill(0.0);
 
         let mut input_event_buffer = EventBuffer::new();
+        let mut event_count = 0;
         while let Ok(cmd) = self.command_consumer.pop() {
-            if let Some(event) = command_to_event(cmd) {
+            if self.verbose {
+                log::info!("[AUDIO-DEQUEUE] Processing command: {:?}", cmd);
+            }
+            if let Some(event) = command_to_event(cmd.clone()) {
+                event_count += 1;
+                if self.verbose {
+                    log::info!("[AUDIO-EVENT] Sending to plugin: {:?}", format_event(&event));
+                }
                 match event {
                     EventUnion::NoteOn(e) => { input_event_buffer.push(&e); }
                     EventUnion::NoteOff(e) => { input_event_buffer.push(&e); }
@@ -240,6 +255,9 @@ impl StreamAudioProcessor {
                     EventUnion::ParamMod(e) => { input_event_buffer.push(&e); }
                 }
             }
+        }
+        if self.verbose && event_count > 0 {
+            log::info!("[AUDIO-PROCESS] Processing {} events, {} frames", event_count, frame_count);
         }
 
         let input_events_ref = InputEvents::from_buffer(&input_event_buffer);
@@ -303,6 +321,16 @@ enum EventUnion {
     NoteChoke(NoteChokeEvent),
     ParamValue(ParamValueEvent),
     ParamMod(ParamModEvent),
+}
+
+fn format_event(event: &EventUnion) -> String {
+    match event {
+        EventUnion::NoteOn(_) => "NoteOn".to_string(),
+        EventUnion::NoteOff(_) => "NoteOff".to_string(),
+        EventUnion::NoteChoke(_) => "NoteChoke".to_string(),
+        EventUnion::ParamValue(_) => "ParamValue".to_string(),
+        EventUnion::ParamMod(_) => "ParamMod".to_string(),
+    }
 }
 
 impl AsRef<UnknownEvent> for EventUnion {

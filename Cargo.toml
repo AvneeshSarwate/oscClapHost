@@ -8,8 +8,8 @@ name = "clap-osc-host"
 path = "src/main.rs"
 
 [dependencies]
-clack-host = { path = "../clack/host" }
-clack-extensions = { path = "../clack/extensions", features = ["clack-host", "audio-ports", "note-ports", "params", "log"] }
+clack-host = { git = "https://github.com/prokopyl/clack.git" }
+clack-extensions = { git = "https://github.com/prokopyl/clack.git", features = ["clack-host", "audio-ports", "note-ports", "params", "log"] }
 cpal = "0.15"
 rosc = "0.10"
 clap = { version = "4", features = ["derive"] }
@@ -18,3 +18,4 @@ log = "0.4"
 env_logger = "0.11"
 rtrb = "0.3"
 crossbeam-channel = "0.5"
+ctrlc = "3.4"

@@ -1,0 +1,793 @@
+=== OSC API ===
+
+Note Control:
+  /note/on     note_id:i32  key:i32  vel:f32  [chan:i32=0]  [port:i32=0]
+  /note/off    note_id:i32  key:i32  vel:f32  [chan:i32=0]  [port:i32=0]
+  /note/choke  note_id:i32  [key:i32=-1]  [chan:i32=-1]  [port:i32=-1]
+
+Parameter Control:
+  /param/set   param_id:i32  value:f64
+  /param/mod   note_id:i32  param_id:i32  amount:f64  [key:i32=-1]  [chan:i32=-1]  [port:i32=-1]
+
+=== Parameter Table ===
+
+      ID  Name                                      Module                                   Min           Max       Default   Stepped  Per-Note Mod
+------------------------------------------------------------------------------------------------------------------------------------------------------
+825615485  M1: -                                     /Macros/                              0.0000        1.0000        0.0000        NO            NO
+825615486  M2: -                                     /Macros/                              0.0000        1.0000        0.0000        NO            NO
+825615487  M3: -                                     /Macros/                              0.0000        1.0000        0.0000        NO            NO
+825615488  M4: -                                     /Macros/                              0.0000        1.0000        0.0000        NO            NO
+825615489  M5: -                                     /Macros/                              0.0000        1.0000        0.0000        NO            NO
+825615490  M6: -                                     /Macros/                              0.0000        1.0000        0.0000        NO            NO
+825615491  M7: -                                     /Macros/                              0.0000        1.0000        0.0000        NO            NO
+825615492  M8: -                                     /Macros/                              0.0000        1.0000        0.0000        NO            NO
+2742684410  Send FX 1 Return                          /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+2742684411  Send FX 2 Return                          /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+2742684412  Send FX 3 Return                          /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+2742684413  Send FX 4 Return                          /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3484083994  Global Volume                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+1746267673  Active Scene                              /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+1730096175  Scene Mode                                /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+2368369925  Split Point                               /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3313820795  FX Disable                                /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+240235375  Polyphony Limit                           /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+341421301  FX Chain Bypass                           /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+2293392858  FX A1 FX Type                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3032550496  FX A1 Param 1                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3032550497  FX A1 Param 2                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3032550498  FX A1 Param 3                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3032550499  FX A1 Param 4                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3032550500  FX A1 Param 5                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3032550501  FX A1 Param 6                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3032550502  FX A1 Param 7                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3032550503  FX A1 Param 8                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3032550504  FX A1 Param 9                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3032550505  FX A1 Param 10                            /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3814752239  FX A1 Param 11                            /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3814752240  FX A1 Param 12                            /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+2322022009  FX A2 FX Type                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3032580287  FX A2 Param 1                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3032580288  FX A2 Param 2                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3032580289  FX A2 Param 3                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3032580290  FX A2 Param 4                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3032580291  FX A2 Param 5                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3032580292  FX A2 Param 6                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3032580293  FX A2 Param 7                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3032580294  FX A2 Param 8                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3032580295  FX A2 Param 9                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3032580296  FX A2 Param 10                            /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3815675760  FX A2 Param 11                            /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3815675761  FX A2 Param 12                            /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+2350651160  FX B1 FX Type                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3032610078  FX B1 Param 1                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3032610079  FX B1 Param 2                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3032610080  FX B1 Param 3                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3032610081  FX B1 Param 4                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3032610082  FX B1 Param 5                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3032610083  FX B1 Param 6                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3032610084  FX B1 Param 7                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3032610085  FX B1 Param 8                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3032610086  FX B1 Param 9                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3032610087  FX B1 Param 10                            /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3816599281  FX B1 Param 11                            /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3816599282  FX B1 Param 12                            /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+2379280311  FX B2 FX Type                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3032639869  FX B2 Param 1                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3032639870  FX B2 Param 2                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3032639871  FX B2 Param 3                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3032639872  FX B2 Param 4                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3032639873  FX B2 Param 5                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3032639874  FX B2 Param 6                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3032639875  FX B2 Param 7                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3032639876  FX B2 Param 8                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3032639877  FX B2 Param 9                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3032639878  FX B2 Param 10                            /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3817522802  FX B2 Param 11                            /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3817522803  FX B2 Param 12                            /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+2407909462  FX S1 FX Type                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3032669660  FX S1 Param 1                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3032669661  FX S1 Param 2                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3032669662  FX S1 Param 3                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3032669663  FX S1 Param 4                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3032669664  FX S1 Param 5                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3032669665  FX S1 Param 6                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3032669666  FX S1 Param 7                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3032669667  FX S1 Param 8                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3032669668  FX S1 Param 9                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3032669669  FX S1 Param 10                            /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3818446323  FX S1 Param 11                            /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3818446324  FX S1 Param 12                            /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+2436538613  FX S2 FX Type                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3032699451  FX S2 Param 1                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3032699452  FX S2 Param 2                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3032699453  FX S2 Param 3                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3032699454  FX S2 Param 4                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3032699455  FX S2 Param 5                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3032699456  FX S2 Param 6                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3032699457  FX S2 Param 7                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3032699458  FX S2 Param 8                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3032699459  FX S2 Param 9                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3032699460  FX S2 Param 10                            /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3819369844  FX S2 Param 11                            /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3819369845  FX S2 Param 12                            /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+2465167764  FX G1 FX Type                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3032729242  FX G1 Param 1                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3032729243  FX G1 Param 2                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3032729244  FX G1 Param 3                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3032729245  FX G1 Param 4                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3032729246  FX G1 Param 5                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3032729247  FX G1 Param 6                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3032729248  FX G1 Param 7                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3032729249  FX G1 Param 8                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3032729250  FX G1 Param 9                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3032729251  FX G1 Param 10                            /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3820293365  FX G1 Param 11                            /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3820293366  FX G1 Param 12                            /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+2493796915  FX G2 FX Type                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3032759033  FX G2 Param 1                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3032759034  FX G2 Param 2                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3032759035  FX G2 Param 3                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3032759036  FX G2 Param 4                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3032759037  FX G2 Param 5                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3032759038  FX G2 Param 6                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3032759039  FX G2 Param 7                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3032759040  FX G2 Param 8                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3032759041  FX G2 Param 9                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3032759042  FX G2 Param 10                            /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3821216886  FX G2 Param 11                            /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3821216887  FX G2 Param 12                            /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+2522426066  FX A3 FX Type                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3032788824  FX A3 Param 1                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3032788825  FX A3 Param 2                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3032788826  FX A3 Param 3                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3032788827  FX A3 Param 4                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3032788828  FX A3 Param 5                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3032788829  FX A3 Param 6                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3032788830  FX A3 Param 7                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3032788831  FX A3 Param 8                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3032788832  FX A3 Param 9                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3032788833  FX A3 Param 10                            /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3822140407  FX A3 Param 11                            /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3822140408  FX A3 Param 12                            /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+1010597960  FX A4 FX Type                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3813337678  FX A4 Param 1                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3813337679  FX A4 Param 2                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3813337680  FX A4 Param 3                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3813337681  FX A4 Param 4                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3813337682  FX A4 Param 5                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3813337683  FX A4 Param 6                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3813337684  FX A4 Param 7                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3813337685  FX A4 Param 8                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3813337686  FX A4 Param 9                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3813337687  FX A4 Param 10                            /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+2249351105  FX A4 Param 11                            /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+2249351106  FX A4 Param 12                            /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+1039227111  FX B3 FX Type                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3813367469  FX B3 Param 1                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3813367470  FX B3 Param 2                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3813367471  FX B3 Param 3                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3813367472  FX B3 Param 4                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3813367473  FX B3 Param 5                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3813367474  FX B3 Param 6                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3813367475  FX B3 Param 7                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3813367476  FX B3 Param 8                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3813367477  FX B3 Param 9                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3813367478  FX B3 Param 10                            /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+2250274626  FX B3 Param 11                            /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+2250274627  FX B3 Param 12                            /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+1067856262  FX B4 FX Type                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3813397260  FX B4 Param 1                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3813397261  FX B4 Param 2                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3813397262  FX B4 Param 3                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3813397263  FX B4 Param 4                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3813397264  FX B4 Param 5                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3813397265  FX B4 Param 6                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3813397266  FX B4 Param 7                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3813397267  FX B4 Param 8                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3813397268  FX B4 Param 9                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3813397269  FX B4 Param 10                            /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+2251198147  FX B4 Param 11                            /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+2251198148  FX B4 Param 12                            /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+1096485413  FX S3 FX Type                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3813427051  FX S3 Param 1                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3813427052  FX S3 Param 2                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3813427053  FX S3 Param 3                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3813427054  FX S3 Param 4                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3813427055  FX S3 Param 5                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3813427056  FX S3 Param 6                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3813427057  FX S3 Param 7                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3813427058  FX S3 Param 8                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3813427059  FX S3 Param 9                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3813427060  FX S3 Param 10                            /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+2252121668  FX S3 Param 11                            /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+2252121669  FX S3 Param 12                            /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+1125114564  FX S4 FX Type                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3813456842  FX S4 Param 1                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3813456843  FX S4 Param 2                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3813456844  FX S4 Param 3                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3813456845  FX S4 Param 4                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3813456846  FX S4 Param 5                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3813456847  FX S4 Param 6                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3813456848  FX S4 Param 7                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3813456849  FX S4 Param 8                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3813456850  FX S4 Param 9                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3813456851  FX S4 Param 10                            /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+2253045189  FX S4 Param 11                            /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+2253045190  FX S4 Param 12                            /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+1153743715  FX G3 FX Type                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3813486633  FX G3 Param 1                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3813486634  FX G3 Param 2                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3813486635  FX G3 Param 3                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3813486636  FX G3 Param 4                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3813486637  FX G3 Param 5                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3813486638  FX G3 Param 6                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3813486639  FX G3 Param 7                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3813486640  FX G3 Param 8                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3813486641  FX G3 Param 9                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3813486642  FX G3 Param 10                            /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+2253968710  FX G3 Param 11                            /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+2253968711  FX G3 Param 12                            /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+1182372866  FX G4 FX Type                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3813516424  FX G4 Param 1                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3813516425  FX G4 Param 2                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3813516426  FX G4 Param 3                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3813516427  FX G4 Param 4                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3813516428  FX G4 Param 5                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3813516429  FX G4 Param 6                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3813516430  FX G4 Param 7                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3813516431  FX G4 Param 8                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3813516432  FX G4 Param 9                             /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3813516433  FX G4 Param 10                            /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+2254892231  FX G4 Param 11                            /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+2254892232  FX G4 Param 12                            /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+1564195625  Character                                 /Global & FX/                         0.0000        1.0000        0.0000        NO            NO
+3235198798  A Octave                                  /A Common/                            0.0000        1.0000        0.0000        NO            NO
+3014957538  A Pitch                                   /A Common/                            0.0000        1.0000        0.0000        NO           YES
+994712943  A Portamento                              /A Common/                            0.0000        1.0000        0.0000        NO           YES
+3065518477  A Play Mode                               /A Common/                            0.0000        1.0000        0.0000        NO            NO
+3430465358  A FM Routing                              /A Common/                            0.0000        1.0000        0.0000        NO            NO
+650467177  A FM Depth                                /A Common/                            0.0000        1.0000        0.0000        NO           YES
+3004132939  A Osc Drift                               /A Common/                            0.0000        1.0000        0.0000        NO           YES
+3783187012  A Noise Color                             /A Common/                            0.0000        1.0000        0.0000        NO           YES
+3242947426  A Keytrack Root Key                       /A Common/                            0.0000        1.0000        0.0000        NO            NO
+3446465720  A Volume                                  /A Common/                            0.0000        1.0000        0.0000        NO           YES
+92522431  A Pan                                     /A Common/                            0.0000        1.0000        0.0000        NO           YES
+2868195411  A Width                                   /A Common/                            0.0000        1.0000        0.0000        NO           YES
+326778877  A Send FX 1 Level                         /A Common/                            0.0000        1.0000        0.0000        NO            NO
+326778878  A Send FX 2 Level                         /A Common/                            0.0000        1.0000        0.0000        NO            NO
+326778879  A Send FX 3 Level                         /A Common/                            0.0000        1.0000        0.0000        NO            NO
+326778880  A Send FX 4 Level                         /A Common/                            0.0000        1.0000        0.0000        NO            NO
+3700707181  A Pitch Bend Up Range                     /A Common/                            0.0000        1.0000        0.0000        NO            NO
+3700706652  A Pitch Bend Down Range                   /A Common/                            0.0000        1.0000        0.0000        NO            NO
+1224911995  A VCA Gain                                /A Common/                            0.0000        1.0000        0.0000        NO           YES
+1285869018  A Velocity > VCA Gain                     /A Common/                            0.0000        1.0000        0.0000        NO           YES
+2312042915  A Feedback                                /A Common/                            0.0000        1.0000        0.0000        NO           YES
+974101959  A Filter Configuration                    /A Common/                            0.0000        1.0000        0.0000        NO            NO
+2642740645  A Filter Balance                          /A Common/                            0.0000        1.0000        0.0000        NO           YES
+3160484876  A Highpass                                /A Common/                            0.0000        1.0000        0.0000        NO            NO
+456251615  A Waveshaper Type                         /A Common/                            0.0000        1.0000        0.0000        NO            NO
+1243907205  A Waveshaper Drive                        /A Common/                            0.0000        1.0000        0.0000        NO           YES
+2244922721  A Filter 2 Offset Mode                    /A Common/                            0.0000        1.0000        0.0000        NO            NO
+1109929470  A Link Resonance                          /A Common/                            0.0000        1.0000        0.0000        NO            NO
+3553863657  A Osc 1 Type                              /A Oscillators/                       0.0000        1.0000        0.0000        NO            NO
+600629919  A Osc 1 Octave                            /A Oscillators/                       0.0000        1.0000        0.0000        NO            NO
+2791424113  A Osc 1 Pitch                             /A Oscillators/                       0.0000        1.0000        0.0000        NO           YES
+627352114  A Osc 1 Shape                             /A Oscillators/                       0.0000        1.0000        0.0000        NO           YES
+627352115  A Osc 1 Width 1                           /A Oscillators/                       0.0000        1.0000        0.0000        NO           YES
+627352116  A Osc 1 Width 2                           /A Oscillators/                       0.0000        1.0000        0.0000        NO           YES
+627352117  A Osc 1 Sub Mix                           /A Oscillators/                       0.0000        1.0000        0.0000        NO           YES
+627352118  A Osc 1 Sync                              /A Oscillators/                       0.0000        1.0000        0.0000        NO           YES
+627352119  A Osc 1 Unison Detune                     /A Oscillators/                       0.0000        1.0000        0.0000        NO           YES
+627352120  A Osc 1 Unison Voices                     /A Oscillators/                       0.0000        1.0000        0.0000        NO            NO
+939040635  A Osc 1 Keytrack                          /A Oscillators/                       0.0000        1.0000        0.0000        NO            NO
+3365237974  A Osc 1 Retrigger                         /A Oscillators/                       0.0000        1.0000        0.0000        NO            NO
+3582492808  A Osc 2 Type                              /A Oscillators/                       0.0000        1.0000        0.0000        NO            NO
+2343440254  A Osc 2 Octave                            /A Oscillators/                       0.0000        1.0000        0.0000        NO            NO
+3678927794  A Osc 2 Pitch                             /A Oscillators/                       0.0000        1.0000        0.0000        NO           YES
+2370162449  A Osc 2 Shape                             /A Oscillators/                       0.0000        1.0000        0.0000        NO           YES
+2370162450  A Osc 2 Width 1                           /A Oscillators/                       0.0000        1.0000        0.0000        NO           YES
+2370162451  A Osc 2 Width 2                           /A Oscillators/                       0.0000        1.0000        0.0000        NO           YES
+2370162452  A Osc 2 Sub Mix                           /A Oscillators/                       0.0000        1.0000        0.0000        NO           YES
+2370162453  A Osc 2 Sync                              /A Oscillators/                       0.0000        1.0000        0.0000        NO           YES
+2370162454  A Osc 2 Unison Detune                     /A Oscillators/                       0.0000        1.0000        0.0000        NO           YES
+2370162455  A Osc 2 Unison Voices                     /A Oscillators/                       0.0000        1.0000        0.0000        NO            NO
+742527130  A Osc 2 Keytrack                          /A Oscillators/                       0.0000        1.0000        0.0000        NO            NO
+1568286615  A Osc 2 Retrigger                         /A Oscillators/                       0.0000        1.0000        0.0000        NO            NO
+3611121959  A Osc 3 Type                              /A Oscillators/                       0.0000        1.0000        0.0000        NO            NO
+4086250589  A Osc 3 Octave                            /A Oscillators/                       0.0000        1.0000        0.0000        NO            NO
+271464179  A Osc 3 Pitch                             /A Oscillators/                       0.0000        1.0000        0.0000        NO           YES
+4112972784  A Osc 3 Shape                             /A Oscillators/                       0.0000        1.0000        0.0000        NO           YES
+4112972785  A Osc 3 Width 1                           /A Oscillators/                       0.0000        1.0000        0.0000        NO           YES
+4112972786  A Osc 3 Width 2                           /A Oscillators/                       0.0000        1.0000        0.0000        NO           YES
+4112972787  A Osc 3 Sub Mix                           /A Oscillators/                       0.0000        1.0000        0.0000        NO           YES
+4112972788  A Osc 3 Sync                              /A Oscillators/                       0.0000        1.0000        0.0000        NO           YES
+4112972789  A Osc 3 Unison Detune                     /A Oscillators/                       0.0000        1.0000        0.0000        NO           YES
+4112972790  A Osc 3 Unison Voices                     /A Oscillators/                       0.0000        1.0000        0.0000        NO            NO
+546013625  A Osc 3 Keytrack                          /A Oscillators/                       0.0000        1.0000        0.0000        NO            NO
+4066302552  A Osc 3 Retrigger                         /A Oscillators/                       0.0000        1.0000        0.0000        NO            NO
+371918427  A Osc 1 Volume                            /A Mixer/                             0.0000        1.0000        0.0000        NO           YES
+247329706  A Osc 1 Mute                              /A Mixer/                             0.0000        1.0000        0.0000        NO            NO
+1098519332  A Osc 1 Solo                              /A Mixer/                             0.0000        1.0000        0.0000        NO            NO
+2508963190  A Osc 1 Route                             /A Mixer/                             0.0000        1.0000        0.0000        NO            NO
+371918428  A Osc 2 Volume                            /A Mixer/                             0.0000        1.0000        0.0000        NO           YES
+247329707  A Osc 2 Mute                              /A Mixer/                             0.0000        1.0000        0.0000        NO            NO
+1098519333  A Osc 2 Solo                              /A Mixer/                             0.0000        1.0000        0.0000        NO            NO
+2508963191  A Osc 2 Route                             /A Mixer/                             0.0000        1.0000        0.0000        NO            NO
+371918429  A Osc 3 Volume                            /A Mixer/                             0.0000        1.0000        0.0000        NO           YES
+247329708  A Osc 3 Mute                              /A Mixer/                             0.0000        1.0000        0.0000        NO            NO
+1098519334  A Osc 3 Solo                              /A Mixer/                             0.0000        1.0000        0.0000        NO            NO
+2508963192  A Osc 3 Route                             /A Mixer/                             0.0000        1.0000        0.0000        NO            NO
+1788975242  A Ring Modulation 1x2 Volume              /A Mixer/                             0.0000        1.0000        0.0000        NO           YES
+3662628441  A Ring Modulation 1x2 Mute                /A Mixer/                             0.0000        1.0000        0.0000        NO            NO
+177936595  A Ring Modulation 1x2 Solo                /A Mixer/                             0.0000        1.0000        0.0000        NO            NO
+1313557029  A Ring Modulation 1x2 Route               /A Mixer/                             0.0000        1.0000        0.0000        NO            NO
+1788975274  A Ring Modulation 2x3 Volume              /A Mixer/                             0.0000        1.0000        0.0000        NO           YES
+3662628473  A Ring Modulation 2x3 Mute                /A Mixer/                             0.0000        1.0000        0.0000        NO            NO
+177936627  A Ring Modulation 2x3 Solo                /A Mixer/                             0.0000        1.0000        0.0000        NO            NO
+1313557061  A Ring Modulation 2x3 Route               /A Mixer/                             0.0000        1.0000        0.0000        NO            NO
+3102230465  A Noise Volume                            /A Mixer/                             0.0000        1.0000        0.0000        NO           YES
+2331386898  A Noise Mute                              /A Mixer/                             0.0000        1.0000        0.0000        NO            NO
+2634619480  A Noise Solo                              /A Mixer/                             0.0000        1.0000        0.0000        NO            NO
+3502536390  A Noise Route                             /A Mixer/                             0.0000        1.0000        0.0000        NO            NO
+2939539352  A Pre-Filter Gain                         /A Mixer/                             0.0000        1.0000        0.0000        NO           YES
+1537728286  A Filter 1 Type                           /A Filters/                           0.0000        1.0000        0.0000        NO            NO
+3622773526  A Filter 1 Subtype                        /A Filters/                           0.0000        1.0000        0.0000        NO            NO
+4092842705  A Filter 1 Cutoff                         /A Filters/                           0.0000        1.0000        0.0000        NO           YES
+ 8095466  A Filter 1 Resonance                      /A Filters/                           0.0000        1.0000        0.0000        NO           YES
+4143694297  A Filter 1 FEG Mod Amount                 /A Filters/                           0.0000        1.0000        0.0000        NO           YES
+3217306672  A Filter 1 Keytrack                       /A Filters/                           0.0000        1.0000        0.0000        NO           YES
+1566357437  A Filter 2 Type                           /A Filters/                           0.0000        1.0000        0.0000        NO            NO
+1815319063  A Filter 2 Subtype                        /A Filters/                           0.0000        1.0000        0.0000        NO            NO
+1540685744  A Filter 2 Cutoff                         /A Filters/                           0.0000        1.0000        0.0000        NO           YES
+2506111403  A Filter 2 Resonance                      /A Filters/                           0.0000        1.0000        0.0000        NO           YES
+1591537336  A Filter 2 FEG Mod Amount                 /A Filters/                           0.0000        1.0000        0.0000        NO           YES
+3020793167  A Filter 2 Keytrack                       /A Filters/                           0.0000        1.0000        0.0000        NO           YES
+2005836581  A Amp EG Attack                           /A Envelopes/                         0.0000        1.0000        0.0000        NO           YES
+4205880839  A Amp EG Attack Shape                     /A Envelopes/                         0.0000        1.0000        0.0000        NO            NO
+3946337085  A Amp EG Decay                            /A Envelopes/                         0.0000        1.0000        0.0000        NO           YES
+2313937951  A Amp EG Decay Shape                      /A Envelopes/                         0.0000        1.0000        0.0000        NO            NO
+874858726  A Amp EG Sustain                          /A Envelopes/                         0.0000        1.0000        0.0000        NO           YES
+3817344714  A Amp EG Release                          /A Envelopes/                         0.0000        1.0000        0.0000        NO           YES
+454164972  A Amp EG Release Shape                    /A Envelopes/                         0.0000        1.0000        0.0000        NO            NO
+4006904256  A Amp EG Envelope Mode                    /A Envelopes/                         0.0000        1.0000        0.0000        NO            NO
+3748646916  A Filter EG Attack                        /A Envelopes/                         0.0000        1.0000        0.0000        NO           YES
+3700322214  A Filter EG Attack Shape                  /A Envelopes/                         0.0000        1.0000        0.0000        NO            NO
+538873470  A Filter EG Decay                         /A Envelopes/                         0.0000        1.0000        0.0000        NO           YES
+2020534944  A Filter EG Decay Shape                   /A Envelopes/                         0.0000        1.0000        0.0000        NO            NO
+3362371559  A Filter EG Sustain                       /A Envelopes/                         0.0000        1.0000        0.0000        NO           YES
+2009890251  A Filter EG Release                       /A Envelopes/                         0.0000        1.0000        0.0000        NO           YES
+1961716781  A Filter EG Release Shape                 /A Envelopes/                         0.0000        1.0000        0.0000        NO            NO
+4035533407  A Filter EG Envelope Mode                 /A Envelopes/                         0.0000        1.0000        0.0000        NO            NO
+3957142939  A LFO 1 Type                              /A LFOs/                              0.0000        1.0000        0.0000        NO            NO
+1235992486  A LFO 1 Rate                              /A LFOs/                              0.0000        1.0000        0.0000        NO           YES
+3954372469  A LFO 1 Phase                             /A LFOs/                              0.0000        1.0000        0.0000        NO           YES
+2456464138  A LFO 1 Amplitude                         /A LFOs/                              0.0000        1.0000        0.0000        NO           YES
+1980287499  A LFO 1 Deform                            /A LFOs/                              0.0000        1.0000        0.0000        NO           YES
+1231937413  A LFO 1 Trigger Mode                      /A LFOs/                              0.0000        1.0000        0.0000        NO            NO
+3728068628  A LFO 1 Unipolar                          /A LFOs/                              0.0000        1.0000        0.0000        NO            NO
+3943210877  A LFO 1 Delay                             /A LFOs/                              0.0000        1.0000        0.0000        NO           YES
+1908656014  A LFO 1 Attack                            /A LFOs/                              0.0000        1.0000        0.0000        NO           YES
+1235707781  A LFO 1 Hold                              /A LFOs/                              0.0000        1.0000        0.0000        NO           YES
+3943202228  A LFO 1 Decay                             /A LFOs/                              0.0000        1.0000        0.0000        NO           YES
+2157228445  A LFO 1 Sustain                           /A LFOs/                              0.0000        1.0000        0.0000        NO           YES
+804747137  A LFO 1 Release                           /A LFOs/                              0.0000        1.0000        0.0000        NO           YES
+549679324  A LFO 2 Type                              /A LFOs/                              0.0000        1.0000        0.0000        NO            NO
+1264621637  A LFO 2 Rate                              /A LFOs/                              0.0000        1.0000        0.0000        NO           YES
+546908854  A LFO 2 Phase                             /A LFOs/                              0.0000        1.0000        0.0000        NO           YES
+659512779  A LFO 2 Amplitude                         /A LFOs/                              0.0000        1.0000        0.0000        NO           YES
+3723097834  A LFO 2 Deform                            /A LFOs/                              0.0000        1.0000        0.0000        NO           YES
+1035423908  A LFO 2 Trigger Mode                      /A LFOs/                              0.0000        1.0000        0.0000        NO            NO
+3531555123  A LFO 2 Unipolar                          /A LFOs/                              0.0000        1.0000        0.0000        NO            NO
+535747262  A LFO 2 Delay                             /A LFOs/                              0.0000        1.0000        0.0000        NO           YES
+3651466349  A LFO 2 Attack                            /A LFOs/                              0.0000        1.0000        0.0000        NO           YES
+1264336932  A LFO 2 Hold                              /A LFOs/                              0.0000        1.0000        0.0000        NO           YES
+535738613  A LFO 2 Decay                             /A LFOs/                              0.0000        1.0000        0.0000        NO           YES
+349773982  A LFO 2 Sustain                           /A LFOs/                              0.0000        1.0000        0.0000        NO           YES
+3292259970  A LFO 2 Release                           /A LFOs/                              0.0000        1.0000        0.0000        NO           YES
+1437183005  A LFO 3 Type                              /A LFOs/                              0.0000        1.0000        0.0000        NO            NO
+1293250788  A LFO 3 Rate                              /A LFOs/                              0.0000        1.0000        0.0000        NO           YES
+1434412535  A LFO 3 Phase                             /A LFOs/                              0.0000        1.0000        0.0000        NO           YES
+3157528716  A LFO 3 Amplitude                         /A LFOs/                              0.0000        1.0000        0.0000        NO           YES
+1170940873  A LFO 3 Deform                            /A LFOs/                              0.0000        1.0000        0.0000        NO           YES
+838910403  A LFO 3 Trigger Mode                      /A LFOs/                              0.0000        1.0000        0.0000        NO            NO
+3335041618  A LFO 3 Unipolar                          /A LFOs/                              0.0000        1.0000        0.0000        NO            NO
+1423250943  A LFO 3 Delay                             /A LFOs/                              0.0000        1.0000        0.0000        NO           YES
+1099309388  A LFO 3 Attack                            /A LFOs/                              0.0000        1.0000        0.0000        NO           YES
+1292966083  A LFO 3 Hold                              /A LFOs/                              0.0000        1.0000        0.0000        NO           YES
+1423242294  A LFO 3 Decay                             /A LFOs/                              0.0000        1.0000        0.0000        NO           YES
+2837286815  A LFO 3 Sustain                           /A LFOs/                              0.0000        1.0000        0.0000        NO           YES
+1484805507  A LFO 3 Release                           /A LFOs/                              0.0000        1.0000        0.0000        NO           YES
+2324686686  A LFO 4 Type                              /A LFOs/                              0.0000        1.0000        0.0000        NO            NO
+1321879939  A LFO 4 Rate                              /A LFOs/                              0.0000        1.0000        0.0000        NO           YES
+2321916216  A LFO 4 Phase                             /A LFOs/                              0.0000        1.0000        0.0000        NO           YES
+1360577357  A LFO 4 Amplitude                         /A LFOs/                              0.0000        1.0000        0.0000        NO           YES
+2913751208  A LFO 4 Deform                            /A LFOs/                              0.0000        1.0000        0.0000        NO           YES
+642396898  A LFO 4 Trigger Mode                      /A LFOs/                              0.0000        1.0000        0.0000        NO            NO
+3138528113  A LFO 4 Unipolar                          /A LFOs/                              0.0000        1.0000        0.0000        NO            NO
+2310754624  A LFO 4 Delay                             /A LFOs/                              0.0000        1.0000        0.0000        NO           YES
+2842119723  A LFO 4 Attack                            /A LFOs/                              0.0000        1.0000        0.0000        NO           YES
+1321595234  A LFO 4 Hold                              /A LFOs/                              0.0000        1.0000        0.0000        NO           YES
+2310745975  A LFO 4 Decay                             /A LFOs/                              0.0000        1.0000        0.0000        NO           YES
+1029832352  A LFO 4 Sustain                           /A LFOs/                              0.0000        1.0000        0.0000        NO           YES
+3972318340  A LFO 4 Release                           /A LFOs/                              0.0000        1.0000        0.0000        NO           YES
+3212190367  A LFO 5 Type                              /A LFOs/                              0.0000        1.0000        0.0000        NO            NO
+1350509090  A LFO 5 Rate                              /A LFOs/                              0.0000        1.0000        0.0000        NO           YES
+3209419897  A LFO 5 Phase                             /A LFOs/                              0.0000        1.0000        0.0000        NO           YES
+3858593294  A LFO 5 Amplitude                         /A LFOs/                              0.0000        1.0000        0.0000        NO           YES
+361594247  A LFO 5 Deform                            /A LFOs/                              0.0000        1.0000        0.0000        NO           YES
+445883393  A LFO 5 Trigger Mode                      /A LFOs/                              0.0000        1.0000        0.0000        NO            NO
+2942014608  A LFO 5 Unipolar                          /A LFOs/                              0.0000        1.0000        0.0000        NO            NO
+3198258305  A LFO 5 Delay                             /A LFOs/                              0.0000        1.0000        0.0000        NO           YES
+289962762  A LFO 5 Attack                            /A LFOs/                              0.0000        1.0000        0.0000        NO           YES
+1350224385  A LFO 5 Hold                              /A LFOs/                              0.0000        1.0000        0.0000        NO           YES
+3198249656  A LFO 5 Decay                             /A LFOs/                              0.0000        1.0000        0.0000        NO           YES
+3517345185  A LFO 5 Sustain                           /A LFOs/                              0.0000        1.0000        0.0000        NO           YES
+2164863877  A LFO 5 Release                           /A LFOs/                              0.0000        1.0000        0.0000        NO           YES
+4099694048  A LFO 6 Type                              /A LFOs/                              0.0000        1.0000        0.0000        NO            NO
+1379138241  A LFO 6 Rate                              /A LFOs/                              0.0000        1.0000        0.0000        NO           YES
+4096923578  A LFO 6 Phase                             /A LFOs/                              0.0000        1.0000        0.0000        NO           YES
+2061641935  A LFO 6 Amplitude                         /A LFOs/                              0.0000        1.0000        0.0000        NO           YES
+2104404582  A LFO 6 Deform                            /A LFOs/                              0.0000        1.0000        0.0000        NO           YES
+249369888  A LFO 6 Trigger Mode                      /A LFOs/                              0.0000        1.0000        0.0000        NO            NO
+2745501103  A LFO 6 Unipolar                          /A LFOs/                              0.0000        1.0000        0.0000        NO            NO
+4085761986  A LFO 6 Delay                             /A LFOs/                              0.0000        1.0000        0.0000        NO           YES
+2032773097  A LFO 6 Attack                            /A LFOs/                              0.0000        1.0000        0.0000        NO           YES
+1378853536  A LFO 6 Hold                              /A LFOs/                              0.0000        1.0000        0.0000        NO           YES
+4085753337  A LFO 6 Decay                             /A LFOs/                              0.0000        1.0000        0.0000        NO           YES
+1709890722  A LFO 6 Sustain                           /A LFOs/                              0.0000        1.0000        0.0000        NO           YES
+357409414  A LFO 6 Release                           /A LFOs/                              0.0000        1.0000        0.0000        NO           YES
+692230433  A Scene LFO 1 Type                        /A LFOs/                              0.0000        1.0000        0.0000        NO            NO
+1407767392  A Scene LFO 1 Rate                        /A LFOs/                              0.0000        1.0000        0.0000        NO            NO
+689459963  A Scene LFO 1 Phase                       /A LFOs/                              0.0000        1.0000        0.0000        NO            NO
+264690576  A Scene LFO 1 Amplitude                   /A LFOs/                              0.0000        1.0000        0.0000        NO            NO
+3847214917  A Scene LFO 1 Deform                      /A LFOs/                              0.0000        1.0000        0.0000        NO            NO
+52856383  A Scene LFO 1 Trigger Mode                /A LFOs/                              0.0000        1.0000        0.0000        NO            NO
+2548987598  A Scene LFO 1 Unipolar                    /A LFOs/                              0.0000        1.0000        0.0000        NO            NO
+678298371  A Scene LFO 1 Delay                       /A LFOs/                              0.0000        1.0000        0.0000        NO            NO
+3775583432  A Scene LFO 1 Attack                      /A LFOs/                              0.0000        1.0000        0.0000        NO            NO
+1407482687  A Scene LFO 1 Hold                        /A LFOs/                              0.0000        1.0000        0.0000        NO            NO
+678289722  A Scene LFO 1 Decay                       /A LFOs/                              0.0000        1.0000        0.0000        NO            NO
+4197403555  A Scene LFO 1 Sustain                     /A LFOs/                              0.0000        1.0000        0.0000        NO            NO
+2844922247  A Scene LFO 1 Release                     /A LFOs/                              0.0000        1.0000        0.0000        NO            NO
+1579734114  A Scene LFO 2 Type                        /A LFOs/                              0.0000        1.0000        0.0000        NO            NO
+1436396543  A Scene LFO 2 Rate                        /A LFOs/                              0.0000        1.0000        0.0000        NO            NO
+1576963644  A Scene LFO 2 Phase                       /A LFOs/                              0.0000        1.0000        0.0000        NO            NO
+2762706513  A Scene LFO 2 Amplitude                   /A LFOs/                              0.0000        1.0000        0.0000        NO            NO
+1295057956  A Scene LFO 2 Deform                      /A LFOs/                              0.0000        1.0000        0.0000        NO            NO
+4151310174  A Scene LFO 2 Trigger Mode                /A LFOs/                              0.0000        1.0000        0.0000        NO            NO
+2352474093  A Scene LFO 2 Unipolar                    /A LFOs/                              0.0000        1.0000        0.0000        NO            NO
+1565802052  A Scene LFO 2 Delay                       /A LFOs/                              0.0000        1.0000        0.0000        NO            NO
+1223426471  A Scene LFO 2 Attack                      /A LFOs/                              0.0000        1.0000        0.0000        NO            NO
+1436111838  A Scene LFO 2 Hold                        /A LFOs/                              0.0000        1.0000        0.0000        NO            NO
+1565793403  A Scene LFO 2 Decay                       /A LFOs/                              0.0000        1.0000        0.0000        NO            NO
+2389949092  A Scene LFO 2 Sustain                     /A LFOs/                              0.0000        1.0000        0.0000        NO            NO
+1037467784  A Scene LFO 2 Release                     /A LFOs/                              0.0000        1.0000        0.0000        NO            NO
+2467237795  A Scene LFO 3 Type                        /A LFOs/                              0.0000        1.0000        0.0000        NO            NO
+1465025694  A Scene LFO 3 Rate                        /A LFOs/                              0.0000        1.0000        0.0000        NO            NO
+2464467325  A Scene LFO 3 Phase                       /A LFOs/                              0.0000        1.0000        0.0000        NO            NO
+965755154  A Scene LFO 3 Amplitude                   /A LFOs/                              0.0000        1.0000        0.0000        NO            NO
+3037868291  A Scene LFO 3 Deform                      /A LFOs/                              0.0000        1.0000        0.0000        NO            NO
+3954796669  A Scene LFO 3 Trigger Mode                /A LFOs/                              0.0000        1.0000        0.0000        NO            NO
+2155960588  A Scene LFO 3 Unipolar                    /A LFOs/                              0.0000        1.0000        0.0000        NO            NO
+2453305733  A Scene LFO 3 Delay                       /A LFOs/                              0.0000        1.0000        0.0000        NO            NO
+2966236806  A Scene LFO 3 Attack                      /A LFOs/                              0.0000        1.0000        0.0000        NO            NO
+1464740989  A Scene LFO 3 Hold                        /A LFOs/                              0.0000        1.0000        0.0000        NO            NO
+2453297084  A Scene LFO 3 Decay                       /A LFOs/                              0.0000        1.0000        0.0000        NO            NO
+582494629  A Scene LFO 3 Sustain                     /A LFOs/                              0.0000        1.0000        0.0000        NO            NO
+3524980617  A Scene LFO 3 Release                     /A LFOs/                              0.0000        1.0000        0.0000        NO            NO
+3354741476  A Scene LFO 4 Type                        /A LFOs/                              0.0000        1.0000        0.0000        NO            NO
+1493654845  A Scene LFO 4 Rate                        /A LFOs/                              0.0000        1.0000        0.0000        NO            NO
+3351971006  A Scene LFO 4 Phase                       /A LFOs/                              0.0000        1.0000        0.0000        NO            NO
+3463771091  A Scene LFO 4 Amplitude                   /A LFOs/                              0.0000        1.0000        0.0000        NO            NO
+485711330  A Scene LFO 4 Deform                      /A LFOs/                              0.0000        1.0000        0.0000        NO            NO
+3758283164  A Scene LFO 4 Trigger Mode                /A LFOs/                              0.0000        1.0000        0.0000        NO            NO
+1959447083  A Scene LFO 4 Unipolar                    /A LFOs/                              0.0000        1.0000        0.0000        NO            NO
+3340809414  A Scene LFO 4 Delay                       /A LFOs/                              0.0000        1.0000        0.0000        NO            NO
+414079845  A Scene LFO 4 Attack                      /A LFOs/                              0.0000        1.0000        0.0000        NO            NO
+1493370140  A Scene LFO 4 Hold                        /A LFOs/                              0.0000        1.0000        0.0000        NO            NO
+3340800765  A Scene LFO 4 Decay                       /A LFOs/                              0.0000        1.0000        0.0000        NO            NO
+3070007462  A Scene LFO 4 Sustain                     /A LFOs/                              0.0000        1.0000        0.0000        NO            NO
+1717526154  A Scene LFO 4 Release                     /A LFOs/                              0.0000        1.0000        0.0000        NO            NO
+534960088  A Scene LFO 5 Type                        /A LFOs/                              0.0000        1.0000        0.0000        NO            NO
+3480904137  A Scene LFO 5 Rate                        /A LFOs/                              0.0000        1.0000        0.0000        NO            NO
+532189618  A Scene LFO 5 Phase                       /A LFOs/                              0.0000        1.0000        0.0000        NO            NO
+707454663  A Scene LFO 5 Amplitude                   /A LFOs/                              0.0000        1.0000        0.0000        NO            NO
+3266801518  A Scene LFO 5 Deform                      /A LFOs/                              0.0000        1.0000        0.0000        NO            NO
+621328424  A Scene LFO 5 Trigger Mode                /A LFOs/                              0.0000        1.0000        0.0000        NO            NO
+3117459639  A Scene LFO 5 Unipolar                    /A LFOs/                              0.0000        1.0000        0.0000        NO            NO
+521028026  A Scene LFO 5 Delay                       /A LFOs/                              0.0000        1.0000        0.0000        NO            NO
+3195170033  A Scene LFO 5 Attack                      /A LFOs/                              0.0000        1.0000        0.0000        NO            NO
+3480619432  A Scene LFO 5 Hold                        /A LFOs/                              0.0000        1.0000        0.0000        NO            NO
+521019377  A Scene LFO 5 Decay                       /A LFOs/                              0.0000        1.0000        0.0000        NO            NO
+3384457370  A Scene LFO 5 Sustain                     /A LFOs/                              0.0000        1.0000        0.0000        NO            NO
+2031976062  A Scene LFO 5 Release                     /A LFOs/                              0.0000        1.0000        0.0000        NO            NO
+1422463769  A Scene LFO 6 Type                        /A LFOs/                              0.0000        1.0000        0.0000        NO            NO
+3509533288  A Scene LFO 6 Rate                        /A LFOs/                              0.0000        1.0000        0.0000        NO            NO
+1419693299  A Scene LFO 6 Phase                       /A LFOs/                              0.0000        1.0000        0.0000        NO            NO
+3205470600  A Scene LFO 6 Amplitude                   /A LFOs/                              0.0000        1.0000        0.0000        NO            NO
+714644557  A Scene LFO 6 Deform                      /A LFOs/                              0.0000        1.0000        0.0000        NO            NO
+424814919  A Scene LFO 6 Trigger Mode                /A LFOs/                              0.0000        1.0000        0.0000        NO            NO
+2920946134  A Scene LFO 6 Unipolar                    /A LFOs/                              0.0000        1.0000        0.0000        NO            NO
+1408531707  A Scene LFO 6 Delay                       /A LFOs/                              0.0000        1.0000        0.0000        NO            NO
+643013072  A Scene LFO 6 Attack                      /A LFOs/                              0.0000        1.0000        0.0000        NO            NO
+3509248583  A Scene LFO 6 Hold                        /A LFOs/                              0.0000        1.0000        0.0000        NO            NO
+1408523058  A Scene LFO 6 Decay                       /A LFOs/                              0.0000        1.0000        0.0000        NO            NO
+1577002907  A Scene LFO 6 Sustain                     /A LFOs/                              0.0000        1.0000        0.0000        NO            NO
+224521599  A Scene LFO 6 Release                     /A LFOs/                              0.0000        1.0000        0.0000        NO            NO
+683041837  B Octave                                  /B Common/                            0.0000        1.0000        0.0000        NO            NO
+3902461219  B Pitch                                   /B Common/                            0.0000        1.0000        0.0000        NO           YES
+1123795662  B Portamento                              /B Common/                            0.0000        1.0000        0.0000        NO           YES
+2869004972  B Play Mode                               /B Common/                            0.0000        1.0000        0.0000        NO            NO
+1633513999  B FM Routing                              /B Common/                            0.0000        1.0000        0.0000        NO            NO
+453953672  B FM Depth                                /B Common/                            0.0000        1.0000        0.0000        NO           YES
+3891636620  B Osc Drift                               /B Common/                            0.0000        1.0000        0.0000        NO           YES
+3586673507  B Noise Color                             /B Common/                            0.0000        1.0000        0.0000        NO           YES
+3046433921  B Keytrack Root Key                       /B Common/                            0.0000        1.0000        0.0000        NO            NO
+894308759  B Volume                                  /B Common/                            0.0000        1.0000        0.0000        NO           YES
+93445952  B Pan                                     /B Common/                            0.0000        1.0000        0.0000        NO           YES
+2896824562  B Width                                   /B Common/                            0.0000        1.0000        0.0000        NO           YES
+2824794814  B Send FX 1 Level                         /B Common/                            0.0000        1.0000        0.0000        NO            NO
+2824794815  B Send FX 2 Level                         /B Common/                            0.0000        1.0000        0.0000        NO            NO
+2824794816  B Send FX 3 Level                         /B Common/                            0.0000        1.0000        0.0000        NO            NO
+2824794817  B Send FX 4 Level                         /B Common/                            0.0000        1.0000        0.0000        NO            NO
+3829789900  B Pitch Bend Up Range                     /B Common/                            0.0000        1.0000        0.0000        NO            NO
+3829789371  B Pitch Bend Down Range                   /B Common/                            0.0000        1.0000        0.0000        NO            NO
+3722927932  B VCA Gain                                /B Common/                            0.0000        1.0000        0.0000        NO           YES
+780310393  B Velocity > VCA Gain                     /B Common/                            0.0000        1.0000        0.0000        NO           YES
+2115529410  B Feedback                                /B Common/                            0.0000        1.0000        0.0000        NO           YES
+3472117896  B Filter Configuration                    /B Common/                            0.0000        1.0000        0.0000        NO            NO
+845789286  B Filter Balance                          /B Common/                            0.0000        1.0000        0.0000        NO           YES
+608327915  B Highpass                                /B Common/                            0.0000        1.0000        0.0000        NO            NO
+2943764448  B Waveshaper Type                         /B Common/                            0.0000        1.0000        0.0000        NO            NO
+1047393700  B Waveshaper Drive                        /B Common/                            0.0000        1.0000        0.0000        NO           YES
+3598232418  B Filter 2 Offset Mode                    /B Common/                            0.0000        1.0000        0.0000        NO            NO
+265457599  B Link Resonance                          /B Common/                            0.0000        1.0000        0.0000        NO            NO
+1756912298  B Osc 1 Type                              /B Oscillators/                       0.0000        1.0000        0.0000        NO            NO
+307226912  B Osc 1 Octave                            /B Oscillators/                       0.0000        1.0000        0.0000        NO            NO
+2920506832  B Osc 1 Pitch                             /B Oscillators/                       0.0000        1.0000        0.0000        NO           YES
+333949107  B Osc 1 Shape                             /B Oscillators/                       0.0000        1.0000        0.0000        NO           YES
+333949108  B Osc 1 Width 1                           /B Oscillators/                       0.0000        1.0000        0.0000        NO           YES
+333949109  B Osc 1 Width 2                           /B Oscillators/                       0.0000        1.0000        0.0000        NO           YES
+333949110  B Osc 1 Sub Mix                           /B Oscillators/                       0.0000        1.0000        0.0000        NO           YES
+333949111  B Osc 1 Sync                              /B Oscillators/                       0.0000        1.0000        0.0000        NO           YES
+333949112  B Osc 1 Unison Detune                     /B Oscillators/                       0.0000        1.0000        0.0000        NO           YES
+333949113  B Osc 1 Unison Voices                     /B Oscillators/                       0.0000        1.0000        0.0000        NO            NO
+2446592444  B Osc 1 Keytrack                          /B Oscillators/                       0.0000        1.0000        0.0000        NO            NO
+2854703797  B Osc 1 Retrigger                         /B Oscillators/                       0.0000        1.0000        0.0000        NO            NO
+1785541449  B Osc 2 Type                              /B Oscillators/                       0.0000        1.0000        0.0000        NO            NO
+2050037247  B Osc 2 Octave                            /B Oscillators/                       0.0000        1.0000        0.0000        NO            NO
+3808010513  B Osc 2 Pitch                             /B Oscillators/                       0.0000        1.0000        0.0000        NO           YES
+2076759442  B Osc 2 Shape                             /B Oscillators/                       0.0000        1.0000        0.0000        NO           YES
+2076759443  B Osc 2 Width 1                           /B Oscillators/                       0.0000        1.0000        0.0000        NO           YES
+2076759444  B Osc 2 Width 2                           /B Oscillators/                       0.0000        1.0000        0.0000        NO           YES
+2076759445  B Osc 2 Sub Mix                           /B Oscillators/                       0.0000        1.0000        0.0000        NO           YES
+2076759446  B Osc 2 Sync                              /B Oscillators/                       0.0000        1.0000        0.0000        NO           YES
+2076759447  B Osc 2 Unison Detune                     /B Oscillators/                       0.0000        1.0000        0.0000        NO           YES
+2076759448  B Osc 2 Unison Voices                     /B Oscillators/                       0.0000        1.0000        0.0000        NO            NO
+2250078939  B Osc 2 Keytrack                          /B Oscillators/                       0.0000        1.0000        0.0000        NO            NO
+1057752438  B Osc 2 Retrigger                         /B Oscillators/                       0.0000        1.0000        0.0000        NO            NO
+1814170600  B Osc 3 Type                              /B Oscillators/                       0.0000        1.0000        0.0000        NO            NO
+3792847582  B Osc 3 Octave                            /B Oscillators/                       0.0000        1.0000        0.0000        NO            NO
+400546898  B Osc 3 Pitch                             /B Oscillators/                       0.0000        1.0000        0.0000        NO           YES
+3819569777  B Osc 3 Shape                             /B Oscillators/                       0.0000        1.0000        0.0000        NO           YES
+3819569778  B Osc 3 Width 1                           /B Oscillators/                       0.0000        1.0000        0.0000        NO           YES
+3819569779  B Osc 3 Width 2                           /B Oscillators/                       0.0000        1.0000        0.0000        NO           YES
+3819569780  B Osc 3 Sub Mix                           /B Oscillators/                       0.0000        1.0000        0.0000        NO           YES
+3819569781  B Osc 3 Sync                              /B Oscillators/                       0.0000        1.0000        0.0000        NO           YES
+3819569782  B Osc 3 Unison Detune                     /B Oscillators/                       0.0000        1.0000        0.0000        NO           YES
+3819569783  B Osc 3 Unison Voices                     /B Oscillators/                       0.0000        1.0000        0.0000        NO            NO
+2053565434  B Osc 3 Keytrack                          /B Oscillators/                       0.0000        1.0000        0.0000        NO            NO
+3555768375  B Osc 3 Retrigger                         /B Oscillators/                       0.0000        1.0000        0.0000        NO            NO
+175404922  B Osc 1 Volume                            /B Mixer/                             0.0000        1.0000        0.0000        NO           YES
+2734842539  B Osc 1 Mute                              /B Mixer/                             0.0000        1.0000        0.0000        NO            NO
+3586032165  B Osc 1 Solo                              /B Mixer/                             0.0000        1.0000        0.0000        NO            NO
+2312449685  B Osc 1 Route                             /B Mixer/                             0.0000        1.0000        0.0000        NO            NO
+175404923  B Osc 2 Volume                            /B Mixer/                             0.0000        1.0000        0.0000        NO           YES
+2734842540  B Osc 2 Mute                              /B Mixer/                             0.0000        1.0000        0.0000        NO            NO
+3586032166  B Osc 2 Solo                              /B Mixer/                             0.0000        1.0000        0.0000        NO            NO
+2312449686  B Osc 2 Route                             /B Mixer/                             0.0000        1.0000        0.0000        NO            NO
+175404924  B Osc 3 Volume                            /B Mixer/                             0.0000        1.0000        0.0000        NO           YES
+2734842541  B Osc 3 Mute                              /B Mixer/                             0.0000        1.0000        0.0000        NO            NO
+3586032167  B Osc 3 Solo                              /B Mixer/                             0.0000        1.0000        0.0000        NO            NO
+2312449687  B Osc 3 Route                             /B Mixer/                             0.0000        1.0000        0.0000        NO            NO
+1283416617  B Ring Modulation 1x2 Volume              /B Mixer/                             0.0000        1.0000        0.0000        NO           YES
+3369225434  B Ring Modulation 1x2 Mute                /B Mixer/                             0.0000        1.0000        0.0000        NO            NO
+4179500884  B Ring Modulation 1x2 Solo                /B Mixer/                             0.0000        1.0000        0.0000        NO            NO
+807998404  B Ring Modulation 1x2 Route               /B Mixer/                             0.0000        1.0000        0.0000        NO            NO
+1283416649  B Ring Modulation 2x3 Volume              /B Mixer/                             0.0000        1.0000        0.0000        NO           YES
+3369225466  B Ring Modulation 2x3 Mute                /B Mixer/                             0.0000        1.0000        0.0000        NO            NO
+4179500916  B Ring Modulation 2x3 Solo                /B Mixer/                             0.0000        1.0000        0.0000        NO            NO
+807998436  B Ring Modulation 2x3 Route               /B Mixer/                             0.0000        1.0000        0.0000        NO            NO
+2808827458  B Noise Volume                            /B Mixer/                             0.0000        1.0000        0.0000        NO           YES
+2460469617  B Noise Mute                              /B Mixer/                             0.0000        1.0000        0.0000        NO            NO
+2763702199  B Noise Solo                              /B Mixer/                             0.0000        1.0000        0.0000        NO            NO
+3209133383  B Noise Route                             /B Mixer/                             0.0000        1.0000        0.0000        NO            NO
+1142587993  B Pre-Filter Gain                         /B Mixer/                             0.0000        1.0000        0.0000        NO           YES
+1032169661  B Filter 1 Type                           /B Filters/                           0.0000        1.0000        0.0000        NO            NO
+681115927  B Filter 1 Subtype                        /B Filters/                           0.0000        1.0000        0.0000        NO            NO
+3582308528  B Filter 1 Cutoff                         /B Filters/                           0.0000        1.0000        0.0000        NO           YES
+3458590891  B Filter 1 Resonance                      /B Filters/                           0.0000        1.0000        0.0000        NO           YES
+3633160120  B Filter 1 FEG Mod Amount                 /B Filters/                           0.0000        1.0000        0.0000        NO           YES
+2220234319  B Filter 1 Keytrack                       /B Filters/                           0.0000        1.0000        0.0000        NO           YES
+1060798812  B Filter 2 Type                           /B Filters/                           0.0000        1.0000        0.0000        NO            NO
+3168628760  B Filter 2 Subtype                        /B Filters/                           0.0000        1.0000        0.0000        NO            NO
+1030151567  B Filter 2 Cutoff                         /B Filters/                           0.0000        1.0000        0.0000        NO           YES
+1661639532  B Filter 2 Resonance                      /B Filters/                           0.0000        1.0000        0.0000        NO           YES
+1081003159  B Filter 2 FEG Mod Amount                 /B Filters/                           0.0000        1.0000        0.0000        NO           YES
+2023720814  B Filter 2 Keytrack                       /B Filters/                           0.0000        1.0000        0.0000        NO           YES
+1712433574  B Amp EG Attack                           /B Envelopes/                         0.0000        1.0000        0.0000        NO           YES
+3361408968  B Amp EG Attack Shape                     /B Envelopes/                         0.0000        1.0000        0.0000        NO            NO
+4075419804  B Amp EG Decay                            /B Envelopes/                         0.0000        1.0000        0.0000        NO           YES
+1316865598  B Amp EG Decay Shape                      /B Envelopes/                         0.0000        1.0000        0.0000        NO            NO
+369300101  B Amp EG Sustain                          /B Envelopes/                         0.0000        1.0000        0.0000        NO           YES
+3311786089  B Amp EG Release                          /B Envelopes/                         0.0000        1.0000        0.0000        NO           YES
+45340747  B Amp EG Release Shape                    /B Envelopes/                         0.0000        1.0000        0.0000        NO            NO
+2209952897  B Amp EG Envelope Mode                    /B Envelopes/                         0.0000        1.0000        0.0000        NO            NO
+3455243909  B Filter EG Attack                        /B Envelopes/                         0.0000        1.0000        0.0000        NO           YES
+2855850343  B Filter EG Attack Shape                  /B Envelopes/                         0.0000        1.0000        0.0000        NO            NO
+667956189  B Filter EG Decay                         /B Envelopes/                         0.0000        1.0000        0.0000        NO           YES
+1023462591  B Filter EG Decay Shape                   /B Envelopes/                         0.0000        1.0000        0.0000        NO            NO
+2856812934  B Filter EG Sustain                       /B Envelopes/                         0.0000        1.0000        0.0000        NO           YES
+1504331626  B Filter EG Release                       /B Envelopes/                         0.0000        1.0000        0.0000        NO           YES
+1552892556  B Filter EG Release Shape                 /B Envelopes/                         0.0000        1.0000        0.0000        NO            NO
+2238582048  B Filter EG Envelope Mode                 /B Envelopes/                         0.0000        1.0000        0.0000        NO            NO
+4086225658  B LFO 1 Type                              /B LFOs/                              0.0000        1.0000        0.0000        NO            NO
+3734008423  B LFO 1 Rate                              /B LFOs/                              0.0000        1.0000        0.0000        NO           YES
+4083455188  B LFO 1 Phase                             /B LFOs/                              0.0000        1.0000        0.0000        NO           YES
+1945929961  B LFO 1 Amplitude                         /B LFOs/                              0.0000        1.0000        0.0000        NO           YES
+1686884492  B LFO 1 Deform                            /B LFOs/                              0.0000        1.0000        0.0000        NO           YES
+2739489222  B LFO 1 Trigger Mode                      /B LFOs/                              0.0000        1.0000        0.0000        NO            NO
+940653141  B LFO 1 Unipolar                          /B LFOs/                              0.0000        1.0000        0.0000        NO            NO
+4072293596  B LFO 1 Delay                             /B LFOs/                              0.0000        1.0000        0.0000        NO           YES
+1615253007  B LFO 1 Attack                            /B LFOs/                              0.0000        1.0000        0.0000        NO           YES
+3733723718  B LFO 1 Hold                              /B LFOs/                              0.0000        1.0000        0.0000        NO           YES
+4072284947  B LFO 1 Decay                             /B LFOs/                              0.0000        1.0000        0.0000        NO           YES
+1651669820  B LFO 1 Sustain                           /B LFOs/                              0.0000        1.0000        0.0000        NO           YES
+299188512  B LFO 1 Release                           /B LFOs/                              0.0000        1.0000        0.0000        NO           YES
+678762043  B LFO 2 Type                              /B LFOs/                              0.0000        1.0000        0.0000        NO            NO
+3762637574  B LFO 2 Rate                              /B LFOs/                              0.0000        1.0000        0.0000        NO           YES
+675991573  B LFO 2 Phase                             /B LFOs/                              0.0000        1.0000        0.0000        NO           YES
+148978602  B LFO 2 Amplitude                         /B LFOs/                              0.0000        1.0000        0.0000        NO           YES
+3429694827  B LFO 2 Deform                            /B LFOs/                              0.0000        1.0000        0.0000        NO           YES
+2542975717  B LFO 2 Trigger Mode                      /B LFOs/                              0.0000        1.0000        0.0000        NO            NO
+744139636  B LFO 2 Unipolar                          /B LFOs/                              0.0000        1.0000        0.0000        NO            NO
+664829981  B LFO 2 Delay                             /B LFOs/                              0.0000        1.0000        0.0000        NO           YES
+3358063342  B LFO 2 Attack                            /B LFOs/                              0.0000        1.0000        0.0000        NO           YES
+3762352869  B LFO 2 Hold                              /B LFOs/                              0.0000        1.0000        0.0000        NO           YES
+664821332  B LFO 2 Decay                             /B LFOs/                              0.0000        1.0000        0.0000        NO           YES
+4139182653  B LFO 2 Sustain                           /B LFOs/                              0.0000        1.0000        0.0000        NO           YES
+2786701345  B LFO 2 Release                           /B LFOs/                              0.0000        1.0000        0.0000        NO           YES
+1566265724  B LFO 3 Type                              /B LFOs/                              0.0000        1.0000        0.0000        NO            NO
+3791266725  B LFO 3 Rate                              /B LFOs/                              0.0000        1.0000        0.0000        NO           YES
+1563495254  B LFO 3 Phase                             /B LFOs/                              0.0000        1.0000        0.0000        NO           YES
+2646994539  B LFO 3 Amplitude                         /B LFOs/                              0.0000        1.0000        0.0000        NO           YES
+877537866  B LFO 3 Deform                            /B LFOs/                              0.0000        1.0000        0.0000        NO           YES
+2346462212  B LFO 3 Trigger Mode                      /B LFOs/                              0.0000        1.0000        0.0000        NO            NO
+547626131  B LFO 3 Unipolar                          /B LFOs/                              0.0000        1.0000        0.0000        NO            NO
+1552333662  B LFO 3 Delay                             /B LFOs/                              0.0000        1.0000        0.0000        NO           YES
+805906381  B LFO 3 Attack                            /B LFOs/                              0.0000        1.0000        0.0000        NO           YES
+3790982020  B LFO 3 Hold                              /B LFOs/                              0.0000        1.0000        0.0000        NO           YES
+1552325013  B LFO 3 Decay                             /B LFOs/                              0.0000        1.0000        0.0000        NO           YES
+2331728190  B LFO 3 Sustain                           /B LFOs/                              0.0000        1.0000        0.0000        NO           YES
+979246882  B LFO 3 Release                           /B LFOs/                              0.0000        1.0000        0.0000        NO           YES
+2453769405  B LFO 4 Type                              /B LFOs/                              0.0000        1.0000        0.0000        NO            NO
+3819895876  B LFO 4 Rate                              /B LFOs/                              0.0000        1.0000        0.0000        NO           YES
+2450998935  B LFO 4 Phase                             /B LFOs/                              0.0000        1.0000        0.0000        NO           YES
+850043180  B LFO 4 Amplitude                         /B LFOs/                              0.0000        1.0000        0.0000        NO           YES
+2620348201  B LFO 4 Deform                            /B LFOs/                              0.0000        1.0000        0.0000        NO           YES
+2149948707  B LFO 4 Trigger Mode                      /B LFOs/                              0.0000        1.0000        0.0000        NO            NO
+351112626  B LFO 4 Unipolar                          /B LFOs/                              0.0000        1.0000        0.0000        NO            NO
+2439837343  B LFO 4 Delay                             /B LFOs/                              0.0000        1.0000        0.0000        NO           YES
+2548716716  B LFO 4 Attack                            /B LFOs/                              0.0000        1.0000        0.0000        NO           YES
+3819611171  B LFO 4 Hold                              /B LFOs/                              0.0000        1.0000        0.0000        NO           YES
+2439828694  B LFO 4 Decay                             /B LFOs/                              0.0000        1.0000        0.0000        NO           YES
+524273727  B LFO 4 Sustain                           /B LFOs/                              0.0000        1.0000        0.0000        NO           YES
+3466759715  B LFO 4 Release                           /B LFOs/                              0.0000        1.0000        0.0000        NO           YES
+3341273086  B LFO 5 Type                              /B LFOs/                              0.0000        1.0000        0.0000        NO            NO
+3848525027  B LFO 5 Rate                              /B LFOs/                              0.0000        1.0000        0.0000        NO           YES
+3338502616  B LFO 5 Phase                             /B LFOs/                              0.0000        1.0000        0.0000        NO           YES
+3348059117  B LFO 5 Amplitude                         /B LFOs/                              0.0000        1.0000        0.0000        NO           YES
+68191240  B LFO 5 Deform                            /B LFOs/                              0.0000        1.0000        0.0000        NO           YES
+1953435202  B LFO 5 Trigger Mode                      /B LFOs/                              0.0000        1.0000        0.0000        NO            NO
+154599121  B LFO 5 Unipolar                          /B LFOs/                              0.0000        1.0000        0.0000        NO            NO
+3327341024  B LFO 5 Delay                             /B LFOs/                              0.0000        1.0000        0.0000        NO           YES
+4291527051  B LFO 5 Attack                            /B LFOs/                              0.0000        1.0000        0.0000        NO           YES
+3848240322  B LFO 5 Hold                              /B LFOs/                              0.0000        1.0000        0.0000        NO           YES
+3327332375  B LFO 5 Decay                             /B LFOs/                              0.0000        1.0000        0.0000        NO           YES
+3011786560  B LFO 5 Sustain                           /B LFOs/                              0.0000        1.0000        0.0000        NO           YES
+1659305252  B LFO 5 Release                           /B LFOs/                              0.0000        1.0000        0.0000        NO           YES
+4228776767  B LFO 6 Type                              /B LFOs/                              0.0000        1.0000        0.0000        NO            NO
+3877154178  B LFO 6 Rate                              /B LFOs/                              0.0000        1.0000        0.0000        NO           YES
+4226006297  B LFO 6 Phase                             /B LFOs/                              0.0000        1.0000        0.0000        NO           YES
+1551107758  B LFO 6 Amplitude                         /B LFOs/                              0.0000        1.0000        0.0000        NO           YES
+1811001575  B LFO 6 Deform                            /B LFOs/                              0.0000        1.0000        0.0000        NO           YES
+1756921697  B LFO 6 Trigger Mode                      /B LFOs/                              0.0000        1.0000        0.0000        NO            NO
+4253052912  B LFO 6 Unipolar                          /B LFOs/                              0.0000        1.0000        0.0000        NO            NO
+4214844705  B LFO 6 Delay                             /B LFOs/                              0.0000        1.0000        0.0000        NO           YES
+1739370090  B LFO 6 Attack                            /B LFOs/                              0.0000        1.0000        0.0000        NO           YES
+3876869473  B LFO 6 Hold                              /B LFOs/                              0.0000        1.0000        0.0000        NO           YES
+4214836056  B LFO 6 Decay                             /B LFOs/                              0.0000        1.0000        0.0000        NO           YES
+1204332097  B LFO 6 Sustain                           /B LFOs/                              0.0000        1.0000        0.0000        NO           YES
+4146818085  B LFO 6 Release                           /B LFOs/                              0.0000        1.0000        0.0000        NO           YES
+821313152  B Scene LFO 1 Type                        /B LFOs/                              0.0000        1.0000        0.0000        NO            NO
+3905783329  B Scene LFO 1 Rate                        /B LFOs/                              0.0000        1.0000        0.0000        NO            NO
+818542682  B Scene LFO 1 Phase                       /B LFOs/                              0.0000        1.0000        0.0000        NO            NO
+4049123695  B Scene LFO 1 Amplitude                   /B LFOs/                              0.0000        1.0000        0.0000        NO            NO
+3553811910  B Scene LFO 1 Deform                      /B LFOs/                              0.0000        1.0000        0.0000        NO            NO
+1560408192  B Scene LFO 1 Trigger Mode                /B LFOs/                              0.0000        1.0000        0.0000        NO            NO
+4056539407  B Scene LFO 1 Unipolar                    /B LFOs/                              0.0000        1.0000        0.0000        NO            NO
+807381090  B Scene LFO 1 Delay                       /B LFOs/                              0.0000        1.0000        0.0000        NO            NO
+3482180425  B Scene LFO 1 Attack                      /B LFOs/                              0.0000        1.0000        0.0000        NO            NO
+3905498624  B Scene LFO 1 Hold                        /B LFOs/                              0.0000        1.0000        0.0000        NO            NO
+807372441  B Scene LFO 1 Decay                       /B LFOs/                              0.0000        1.0000        0.0000        NO            NO
+3691844930  B Scene LFO 1 Sustain                     /B LFOs/                              0.0000        1.0000        0.0000        NO            NO
+2339363622  B Scene LFO 1 Release                     /B LFOs/                              0.0000        1.0000        0.0000        NO            NO
+1708816833  B Scene LFO 2 Type                        /B LFOs/                              0.0000        1.0000        0.0000        NO            NO
+3934412480  B Scene LFO 2 Rate                        /B LFOs/                              0.0000        1.0000        0.0000        NO            NO
+1706046363  B Scene LFO 2 Phase                       /B LFOs/                              0.0000        1.0000        0.0000        NO            NO
+2252172336  B Scene LFO 2 Amplitude                   /B LFOs/                              0.0000        1.0000        0.0000        NO            NO
+1001654949  B Scene LFO 2 Deform                      /B LFOs/                              0.0000        1.0000        0.0000        NO            NO
+1363894687  B Scene LFO 2 Trigger Mode                /B LFOs/                              0.0000        1.0000        0.0000        NO            NO
+3860025902  B Scene LFO 2 Unipolar                    /B LFOs/                              0.0000        1.0000        0.0000        NO            NO
+1694884771  B Scene LFO 2 Delay                       /B LFOs/                              0.0000        1.0000        0.0000        NO            NO
+930023464  B Scene LFO 2 Attack                      /B LFOs/                              0.0000        1.0000        0.0000        NO            NO
+3934127775  B Scene LFO 2 Hold                        /B LFOs/                              0.0000        1.0000        0.0000        NO            NO
+1694876122  B Scene LFO 2 Decay                       /B LFOs/                              0.0000        1.0000        0.0000        NO            NO
+1884390467  B Scene LFO 2 Sustain                     /B LFOs/                              0.0000        1.0000        0.0000        NO            NO
+531909159  B Scene LFO 2 Release                     /B LFOs/                              0.0000        1.0000        0.0000        NO            NO
+2596320514  B Scene LFO 3 Type                        /B LFOs/                              0.0000        1.0000        0.0000        NO            NO
+3963041631  B Scene LFO 3 Rate                        /B LFOs/                              0.0000        1.0000        0.0000        NO            NO
+2593550044  B Scene LFO 3 Phase                       /B LFOs/                              0.0000        1.0000        0.0000        NO            NO
+455220977  B Scene LFO 3 Amplitude                   /B LFOs/                              0.0000        1.0000        0.0000        NO            NO
+2744465284  B Scene LFO 3 Deform                      /B LFOs/                              0.0000        1.0000        0.0000        NO            NO
+1167381182  B Scene LFO 3 Trigger Mode                /B LFOs/                              0.0000        1.0000        0.0000        NO            NO
+3663512397  B Scene LFO 3 Unipolar                    /B LFOs/                              0.0000        1.0000        0.0000        NO            NO
+2582388452  B Scene LFO 3 Delay                       /B LFOs/                              0.0000        1.0000        0.0000        NO            NO
+2672833799  B Scene LFO 3 Attack                      /B LFOs/                              0.0000        1.0000        0.0000        NO            NO
+3962756926  B Scene LFO 3 Hold                        /B LFOs/                              0.0000        1.0000        0.0000        NO            NO
+2582379803  B Scene LFO 3 Decay                       /B LFOs/                              0.0000        1.0000        0.0000        NO            NO
+76936004  B Scene LFO 3 Sustain                     /B LFOs/                              0.0000        1.0000        0.0000        NO            NO
+3019421992  B Scene LFO 3 Release                     /B LFOs/                              0.0000        1.0000        0.0000        NO            NO
+3483824195  B Scene LFO 4 Type                        /B LFOs/                              0.0000        1.0000        0.0000        NO            NO
+3991670782  B Scene LFO 4 Rate                        /B LFOs/                              0.0000        1.0000        0.0000        NO            NO
+3481053725  B Scene LFO 4 Phase                       /B LFOs/                              0.0000        1.0000        0.0000        NO            NO
+2953236914  B Scene LFO 4 Amplitude                   /B LFOs/                              0.0000        1.0000        0.0000        NO            NO
+192308323  B Scene LFO 4 Deform                      /B LFOs/                              0.0000        1.0000        0.0000        NO            NO
+970867677  B Scene LFO 4 Trigger Mode                /B LFOs/                              0.0000        1.0000        0.0000        NO            NO
+3466998892  B Scene LFO 4 Unipolar                    /B LFOs/                              0.0000        1.0000        0.0000        NO            NO
+3469892133  B Scene LFO 4 Delay                       /B LFOs/                              0.0000        1.0000        0.0000        NO            NO
+120676838  B Scene LFO 4 Attack                      /B LFOs/                              0.0000        1.0000        0.0000        NO            NO
+3991386077  B Scene LFO 4 Hold                        /B LFOs/                              0.0000        1.0000        0.0000        NO            NO
+3469883484  B Scene LFO 4 Decay                       /B LFOs/                              0.0000        1.0000        0.0000        NO            NO
+2564448837  B Scene LFO 4 Sustain                     /B LFOs/                              0.0000        1.0000        0.0000        NO            NO
+1211967529  B Scene LFO 4 Release                     /B LFOs/                              0.0000        1.0000        0.0000        NO            NO
+241557081  B Scene LFO 5 Type                        /B LFOs/                              0.0000        1.0000        0.0000        NO            NO
+3609986856  B Scene LFO 5 Rate                        /B LFOs/                              0.0000        1.0000        0.0000        NO            NO
+238786611  B Scene LFO 5 Phase                       /B LFOs/                              0.0000        1.0000        0.0000        NO            NO
+2060764360  B Scene LFO 5 Amplitude                   /B LFOs/                              0.0000        1.0000        0.0000        NO            NO
+2761242893  B Scene LFO 5 Deform                      /B LFOs/                              0.0000        1.0000        0.0000        NO            NO
+110794247  B Scene LFO 5 Trigger Mode                /B LFOs/                              0.0000        1.0000        0.0000        NO            NO
+2606925462  B Scene LFO 5 Unipolar                    /B LFOs/                              0.0000        1.0000        0.0000        NO            NO
+227625019  B Scene LFO 5 Delay                       /B LFOs/                              0.0000        1.0000        0.0000        NO            NO
+2689611408  B Scene LFO 5 Attack                      /B LFOs/                              0.0000        1.0000        0.0000        NO            NO
+3609702151  B Scene LFO 5 Hold                        /B LFOs/                              0.0000        1.0000        0.0000        NO            NO
+227616370  B Scene LFO 5 Decay                       /B LFOs/                              0.0000        1.0000        0.0000        NO            NO
+597041883  B Scene LFO 5 Sustain                     /B LFOs/                              0.0000        1.0000        0.0000        NO            NO
+3539527871  B Scene LFO 5 Release                     /B LFOs/                              0.0000        1.0000        0.0000        NO            NO
+1129060762  B Scene LFO 6 Type                        /B LFOs/                              0.0000        1.0000        0.0000        NO            NO
+3638616007  B Scene LFO 6 Rate                        /B LFOs/                              0.0000        1.0000        0.0000        NO            NO
+1126290292  B Scene LFO 6 Phase                       /B LFOs/                              0.0000        1.0000        0.0000        NO            NO
+263813001  B Scene LFO 6 Amplitude                   /B LFOs/                              0.0000        1.0000        0.0000        NO            NO
+209085932  B Scene LFO 6 Deform                      /B LFOs/                              0.0000        1.0000        0.0000        NO            NO
+4209248038  B Scene LFO 6 Trigger Mode                /B LFOs/                              0.0000        1.0000        0.0000        NO            NO
+2410411957  B Scene LFO 6 Unipolar                    /B LFOs/                              0.0000        1.0000        0.0000        NO            NO
+1115128700  B Scene LFO 6 Delay                       /B LFOs/                              0.0000        1.0000        0.0000        NO            NO
+137454447  B Scene LFO 6 Attack                      /B LFOs/                              0.0000        1.0000        0.0000        NO            NO
+3638331302  B Scene LFO 6 Hold                        /B LFOs/                              0.0000        1.0000        0.0000        NO            NO
+1115120051  B Scene LFO 6 Decay                       /B LFOs/                              0.0000        1.0000        0.0000        NO            NO
+3084554716  B Scene LFO 6 Sustain                     /B LFOs/                              0.0000        1.0000        0.0000        NO            NO
+1732073408  B Scene LFO 6 Release                     /B LFOs/                              0.0000        1.0000        0.0000        NO            NO
+3142185323  Bypass Surge XT                                                                 0.0000        1.0000        0.0000        NO            NO
+
+Total parameters: 775
+Per-note modulatable: 234

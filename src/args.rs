@@ -48,4 +48,8 @@ pub struct Args {
     /// Number of output channels (default: match plugin output, usually 2)
     #[arg(long = "channels")]
     pub channels: Option<u16>,
+
+    /// Enable verbose event logging (OSC receive, queue, plugin ingestion)
+    #[arg(short = 'v', long = "verbose")]
+    pub verbose: bool,
 }

@@ -108,7 +108,7 @@ fn main() -> Result<()> {
 
     let (command_producer, command_consumer) = create_command_queue(1024);
 
-    let _osc_handle = start_osc_receiver(args.osc_port, command_producer, per_note_mod_params)?;
+    let _osc_handle = start_osc_receiver(args.osc_port, command_producer, per_note_mod_params, args.verbose)?;
 
     let cpal_config = cpal::StreamConfig {
         channels: audio_config.channels,
@@ -124,6 +124,7 @@ fn main() -> Result<()> {
         command_consumer,
         audio_config.channels as usize,
         audio_config.buffer_size as usize * 2,
+        args.verbose,
     )?;
 
     log::info!(
@@ -132,10 +133,30 @@ fn main() -> Result<()> {
     );
     log::info!("Press Ctrl+C to stop.");
 
-    for message in main_receiver {
-        match message {
-            MainThreadMessage::RunOnMainThread => {
-                instance.call_on_main_thread_callback();
+    // Set up Ctrl+C handler
+    let (shutdown_tx, shutdown_rx) = std::sync::mpsc::channel();
+    ctrlc::set_handler(move || {
+        let _ = shutdown_tx.send(());
+    }).expect("Error setting Ctrl+C handler");
+
+    // Main loop: handle main thread callbacks or wait for shutdown
+    loop {
+        // Check for main thread messages (non-blocking with timeout)
+        match main_receiver.recv_timeout(std::time::Duration::from_millis(100)) {
+            Ok(message) => match message {
+                MainThreadMessage::RunOnMainThread => {
+                    instance.call_on_main_thread_callback();
+                }
+            },
+            Err(crossbeam_channel::RecvTimeoutError::Timeout) => {
+                // Check for shutdown signal
+                if shutdown_rx.try_recv().is_ok() {
+                    log::info!("Shutting down...");
+                    break;
+                }
+            }
+            Err(crossbeam_channel::RecvTimeoutError::Disconnected) => {
+                break;
             }
         }
     }
