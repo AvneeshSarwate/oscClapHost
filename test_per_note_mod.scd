@@ -7,9 +7,10 @@
 ~oscPort = 9000;
 ~oscAddr = NetAddr("127.0.0.1", ~oscPort);
 
-// Surge XT per-note modulatable filter parameters
+// Surge XT per-note modulatable parameters
 ~filterCutoffId = 4092842705;  // A Filter 1 Cutoff
 ~filterResonanceId = 8095466;  // A Filter 1 Resonance
+~pitchId = 3014957538;  // A Pitch - use this for obvious vibrato test
 
 // Helper functions
 ~noteOn = { |noteId, key, vel=0.8, chan=0, port=0|
@@ -42,9 +43,9 @@
     ~noteOn.(noteId, key, 0.7);
 
     loop {
-        // Calculate LFO value (-0.5 to 0.5 range for modulation)
-        var modAmount = sin(lfoPhase * 2pi) * 0.3;
-		// ~paramMod.(noteId, ~filterCutoffId, modAmount);
+        // Calculate LFO value - use pitch for obvious vibrato effect
+        var modAmount = sin(lfoPhase * 2pi) * 0.05;  // Small amount for pitch (semitones)
+        ~paramMod.(noteId, ~pitchId, modAmount);
 
         lfoPhase = (lfoPhase + (lfoRate * 0.02)) % 1.0;
         0.02.wait;  // 50Hz update rate
@@ -62,9 +63,9 @@
     ~noteOn.(noteId, key, 0.7);
 
     loop {
-        // Calculate LFO value (-0.5 to 0.5 range for modulation)
-        var modAmount = sin(lfoPhase * 2pi) * 0.4;
-		// ~paramMod.(noteId, ~filterCutoffId, modAmount);
+        // Calculate LFO value - faster vibrato on high note
+        var modAmount = sin(lfoPhase * 2pi) * 0.08;
+        ~paramMod.(noteId, ~pitchId, modAmount);
 
         lfoPhase = (lfoPhase + (lfoRate * 0.02)) % 1.0;
         0.02.wait;  // 50Hz update rate

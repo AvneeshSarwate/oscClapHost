@@ -300,7 +300,13 @@ impl StreamAudioProcessor {
             Some(self.steady_counter),
             None,
         ) {
-            Ok(_) => {
+            Ok(status) => {
+                if self.verbose && event_count > 0 {
+                    log::info!("[AUDIO-STATUS] Plugin returned: {:?}", status);
+                    // Log first few samples of output to check if audio is being generated
+                    let sample_preview: Vec<f32> = self.output_buffers.iter().take(8).cloned().collect();
+                    log::info!("[AUDIO-OUTPUT] First 8 samples: {:?}", sample_preview);
+                }
                 interleave_to_output(data, &self.output_buffers, self.channel_count, frame_count);
             }
             Err(e) => {
