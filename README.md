@@ -1,6 +1,6 @@
 # OSC CLAP Host
 
-A CLI CLAP audio plugin host that receives OSC messages for note and parameter control.
+A CLI CLAP audio plugin host that receives OSC messages for note and parameter control. Allows modulation of an arbitrary number of parameters per-note, as defined by the Clap standard (and the plugin used)
 
 ## Features
 
