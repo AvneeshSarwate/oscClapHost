@@ -30,6 +30,7 @@ impl HostHandlers for OscClapHost {
 
 pub enum MainThreadMessage {
     RunOnMainThread,
+    DumpPatchState,
 }
 
 pub struct OscClapHostShared {
@@ -141,6 +142,7 @@ impl AudioEngine {
         let processor = StreamAudioProcessor::new(
             audio_processor,
             command_consumer,
+            sender.clone(),
             channel_count,
             max_buffer_size,
             verbose,
@@ -194,6 +196,7 @@ fn make_stream_runner<S: FromSample<f32> + Sample>(
 struct StreamAudioProcessor {
     audio_processor: StartedPluginAudioProcessor<OscClapHost>,
     command_consumer: Consumer<Command>,
+    main_thread_sender: Sender<MainThreadMessage>,
     input_ports: AudioPorts,
     output_ports: AudioPorts,
     input_buffers: Vec<f32>,
@@ -207,6 +210,7 @@ impl StreamAudioProcessor {
     fn new(
         audio_processor: StartedPluginAudioProcessor<OscClapHost>,
         command_consumer: Consumer<Command>,
+        main_thread_sender: Sender<MainThreadMessage>,
         channel_count: usize,
         max_buffer_size: usize,
         verbose: bool,
@@ -214,6 +218,7 @@ impl StreamAudioProcessor {
         Self {
             audio_processor,
             command_consumer,
+            main_thread_sender,
             input_ports: AudioPorts::with_capacity(channel_count, 1),
             output_ports: AudioPorts::with_capacity(channel_count, 1),
             input_buffers: vec![0.0; channel_count * max_buffer_size],
@@ -239,6 +244,15 @@ impl StreamAudioProcessor {
         let mut input_event_buffer = EventBuffer::new();
         let mut event_count = 0;
         while let Ok(cmd) = self.command_consumer.pop() {
+            // Handle main-thread commands separately
+            if matches!(cmd, Command::DumpPatchState) {
+                let _ = self.main_thread_sender.send(MainThreadMessage::DumpPatchState);
+                if self.verbose {
+                    log::info!("[AUDIO-FORWARD] Forwarding DumpPatchState to main thread");
+                }
+                continue;
+            }
+
             if self.verbose {
                 log::info!("[AUDIO-DEQUEUE] Processing command: {:?}", cmd);
             }
@@ -417,6 +431,10 @@ fn command_to_event(cmd: Command) -> Option<EventUnion> {
                 amount,
                 Cookie::empty(),
             )))
+        }
+        Command::DumpPatchState => {
+            // Handled separately in the audio callback, not converted to CLAP event
+            None
         }
     }
 }

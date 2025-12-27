@@ -13,7 +13,7 @@ use args::Args;
 use device::{get_cpal_host, get_device_config, print_devices, select_device};
 use engine::{AudioEngine, MainThreadMessage, OscClapHost, OscClapHostMainThread, OscClapHostShared};
 use osc::{create_command_queue, start_osc_receiver};
-use plugin::{enumerate_params, load_bundle, print_osc_api, print_plugins, select_plugin_id};
+use plugin::{dump_patch_state, enumerate_params, load_bundle, print_osc_api, print_plugins, select_plugin_id};
 
 use clack_host::prelude::*;
 use crossbeam_channel::unbounded;
@@ -146,6 +146,12 @@ fn main() -> Result<()> {
             Ok(message) => match message {
                 MainThreadMessage::RunOnMainThread => {
                     instance.call_on_main_thread_callback();
+                }
+                MainThreadMessage::DumpPatchState => {
+                    match dump_patch_state(&mut instance, &params) {
+                        Ok(filename) => log::info!("Patch state saved to: {}", filename),
+                        Err(e) => log::error!("Failed to dump patch state: {}", e),
+                    }
                 }
             },
             Err(crossbeam_channel::RecvTimeoutError::Timeout) => {

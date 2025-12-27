@@ -1,7 +1,10 @@
 use anyhow::{Context, Result, anyhow};
 use clack_extensions::params::{ParamInfoBuffer, ParamInfoFlags, PluginParams};
 use clack_host::prelude::*;
+use clack_host::utils::ClapId;
 use std::ffi::CString;
+use std::fs::File;
+use std::io::Write;
 use std::path::Path;
 
 #[derive(Debug, Clone)]
@@ -202,4 +205,57 @@ fn truncate(s: &str, max_len: usize) -> String {
     } else {
         format!("{}...", &s[..max_len - 3])
     }
+}
+
+pub fn dump_patch_state<H: HostHandlers>(
+    instance: &mut PluginInstance<H>,
+    params: &[ParamInfo],
+) -> Result<String> {
+    let params_ext: Option<PluginParams> = instance.plugin_handle().get_extension();
+    
+    let Some(params_ext) = params_ext else {
+        return Err(anyhow!("Plugin does not support params extension"));
+    };
+
+    let timestamp = chrono::Local::now().format("%Y%m%d_%H%M%S");
+    let filename = format!("patchState_{}.txt", timestamp);
+    let mut file = File::create(&filename).context("Failed to create patch state file")?;
+
+    writeln!(file, "=== Patch State Dump ===")?;
+    writeln!(file, "Timestamp: {}", chrono::Local::now().format("%Y-%m-%d %H:%M:%S"))?;
+    writeln!(file)?;
+    writeln!(
+        file,
+        "{:>12}  {:40}  {:30}  {:>12}  {:>12}  {:>12}",
+        "ID", "Name", "Module", "Current", "Min", "Max"
+    )?;
+    writeln!(file, "{}", "-".repeat(120))?;
+
+    let mut handle = instance.plugin_handle();
+    
+    for param in params {
+        let param_id = match ClapId::from_raw(param.id) {
+            Some(id) => id,
+            None => continue,
+        };
+        
+        let current_value = params_ext.get_value(&mut handle, param_id).unwrap_or(f64::NAN);
+        
+        writeln!(
+            file,
+            "{:>12}  {:40}  {:30}  {:>12.6}  {:>12.4}  {:>12.4}",
+            param.id,
+            truncate(&param.name, 40),
+            truncate(&param.module, 30),
+            current_value,
+            param.min_value,
+            param.max_value,
+        )?;
+    }
+
+    writeln!(file)?;
+    writeln!(file, "Total parameters: {}", params.len())?;
+
+    log::info!("Patch state dumped to: {}", filename);
+    Ok(filename)
 }

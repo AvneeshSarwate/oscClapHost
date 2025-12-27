@@ -32,6 +32,11 @@
     "Param SET: id=% value=%".format(paramId, value).postln;
 };
 
+~dumpPatchState = {
+    ~oscAddr.sendMsg("/patchState");
+    "Requested patch state dump".postln;
+};
+
 // Task 1: Low note with slow LFO on filter cutoff
 ~task1 = Task({
     var noteId = 1;

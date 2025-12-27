@@ -49,6 +49,8 @@ clap-osc-host /path/to/plugin.clap --osc-port 9000 --device 0
 
 ## OSC API
 
+See text_per_note_mod.scd for a quick debug test using supercollider. Parameter ids for the SurgeXT synth are printed in surgeOSC.txt
+
 ### Note Control
 
 | Address       | Arguments                                           | Description    |
@@ -105,3 +107,8 @@ oscsend localhost 9000 /note/off iii 1 60 0.0   # note off
 - [Clack](https://github.com/prokopyl/clack) - CLAP hosting in Rust
 - [CPAL](https://github.com/RustAudio/cpal) - Cross-platform audio I/O
 - [rosc](https://github.com/klingtnet/rosc) - OSC protocol implementation
+
+
+
+## TODO 
+- [ ] save/load presets

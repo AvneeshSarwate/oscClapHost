@@ -41,6 +41,7 @@ pub enum Command {
         channel: i32,
         port: i32,
     },
+    DumpPatchState,
 }
 
 pub fn create_command_queue(capacity: usize) -> (Producer<Command>, rtrb::Consumer<Command>) {
@@ -116,6 +117,7 @@ fn parse_message(msg: &OscMessage, per_note_mod_params: &HashSet<u32>) -> Option
         "/note/choke" => parse_note_choke(&msg.args),
         "/param/set" => parse_param_set(&msg.args),
         "/param/mod" => parse_param_mod(&msg.args, per_note_mod_params),
+        "/patchState" => Some(Command::DumpPatchState),
         _ => {
             log::debug!("Unknown OSC address: {}", msg.addr);
             None
